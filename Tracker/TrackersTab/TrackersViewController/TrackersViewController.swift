@@ -39,7 +39,7 @@ final class TrackersViewController: UIViewController {
     private lazy var searchBar: TrackerSearchBar = {
         let searchBar = TrackerSearchBar()
         searchBar.delegate = self
-        searchBar.searchTextField.addTarget(self, action: #selector(searchBarTapped), for: .editingDidEndOnExit)
+        searchBar.searchTextField.addTarget(self, action: #selector(searchBarTapped), for: .editingChanged)
         return searchBar
     }()
     
@@ -123,7 +123,7 @@ final class TrackersViewController: UIViewController {
     }
     
     private func reloadData() {
-        categories = dataManager.categories
+        categories = visibleCategories
         datePickerDateChanged()
     }
     

@@ -160,7 +160,7 @@ private extension CategoryViewController {
 extension CategoryViewController: CreateCategoryViewControllerDelegate {
     func updateListOfCategories(with category: TrackerCategory) {
         listOfCategories.append(category)
-        dataManager.update(categories: [category])
+        dataManager.add(categories: [category])
         checkCategories()
         categoryTableView.reloadData()
     }

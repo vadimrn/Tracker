@@ -7,8 +7,9 @@
 
 import UIKit
 
-class DataManager {
+final class DataManager {
     static let shared = DataManager()
+
     
     var categories: [TrackerCategory] = [
         TrackerCategory(
@@ -51,9 +52,10 @@ class DataManager {
         )
     ]
     
-    func update(categories: [TrackerCategory]) {
+    func add(categories: [TrackerCategory]) {
         self.categories.append(contentsOf: categories)
     }
     
     private init() {}
 }
+

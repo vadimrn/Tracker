@@ -152,7 +152,7 @@ final class IrregularTrackerViewController: UIViewController {
                 trackers: [newTracker]
             )
             
-            dataManager.update(categories: [newCategory])
+            dataManager.add(categories: [newCategory])
         }
     }
     

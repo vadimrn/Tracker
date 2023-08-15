@@ -273,6 +273,7 @@ extension IrregularTrackerViewController: UITextFieldDelegate {
 extension IrregularTrackerViewController: UpdateSubtitleDelegate {
     
     func updateCategorySubtitle(from string: String?, at indexPath: IndexPath?) {
+        dismiss(animated: true)
         categorySubtitle = string ?? ""
         indexCategory = indexPath
         

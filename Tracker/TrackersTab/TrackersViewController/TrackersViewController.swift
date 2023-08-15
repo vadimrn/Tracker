@@ -7,6 +7,8 @@
 
 import UIKit
 
+import UIKit
+
 //MARK: - Trackers ViewController Class
 
 final class TrackersViewController: UIViewController {
@@ -39,7 +41,7 @@ final class TrackersViewController: UIViewController {
     private lazy var searchBar: TrackerSearchBar = {
         let searchBar = TrackerSearchBar()
         searchBar.delegate = self
-        searchBar.searchTextField.addTarget(self, action: #selector(searchBarTapped), for: .editingChanged)
+        searchBar.searchTextField.addTarget(self, action: #selector(searchBarTapped), for: .editingDidEndOnExit)
         return searchBar
     }()
     
@@ -90,8 +92,11 @@ final class TrackersViewController: UIViewController {
     }()
     
     private let dataManager = DataManager.shared
+    private var categories: [TrackerCategory] {
+            dataManager.categories
+        }
     
-    private var categories: [TrackerCategory] = []
+    
     private var visibleCategories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
     private var currentDate: Date? = nil
@@ -123,7 +128,7 @@ final class TrackersViewController: UIViewController {
     }
     
     private func reloadData() {
-        categories = visibleCategories
+       
         datePickerDateChanged()
     }
     

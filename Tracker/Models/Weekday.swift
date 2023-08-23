@@ -2,7 +2,7 @@
 //  WeekDay.swift
 //  Tracker
 //
-//  Created byVadim Nuretdinov on 16.07.2023.
+//  Created by Vadim Nuretdinov on 19.08.2023.
 //
 
 import Foundation
@@ -38,5 +38,16 @@ enum Weekday: String, CaseIterable {
         case .saturday: return 7
         case .sunday: return 1
         }
+    }
+    
+    static func getString(from weekday: [Weekday]?) -> String? {
+        guard let weekday else { return nil }
+        return weekday.map { $0.rawValue }.joined(separator: ", ")
+    }
+    
+    static func getWeekday(from string: String?) -> [Weekday]? {
+        let array = string?.components(separatedBy: ", ")
+        let weekday = Weekday.allCases.filter { array?.contains($0.rawValue) ?? false }
+        return weekday.count > 0 ? weekday : nil
     }
 }

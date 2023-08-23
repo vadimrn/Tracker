@@ -2,7 +2,7 @@
 //  UIFont+Extensions.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov on 16.07.2023.
+//  Created by Vadim Nuretdinov on 19.08.2023.
 //
 
 import UIKit

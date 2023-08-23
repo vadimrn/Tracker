@@ -2,7 +2,7 @@
 //  ScheduleViewController.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov on 16.07.2023.
+//  Created by Vadim Nuretdinov on 19.08.2023.
 //
 
 import UIKit
@@ -40,7 +40,7 @@ final class ScheduleViewController: UIViewController {
     
     var schedule: [Weekday] = []
     var selectedWeekdays: [Int : Bool] = [:]
-    weak var delegate: UpdateSubtitleDelegate?
+    weak var delegate: UpdateTrackerInformationDelegate?
     
     // MARK: - Lifecycle
     

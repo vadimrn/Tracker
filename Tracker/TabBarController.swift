@@ -2,41 +2,37 @@
 //  TabBarController.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov on 19.08.2023.
+//  Created by Vadim Nuretdinov  on 07.07.2023.
 //
 
 import UIKit
 
-//MARK: - TabBarController Class
-
 final class TabBarController: UITabBarController {
     
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let borderView = UIView(frame: CGRect(x: 0, y: 0, width: tabBar.frame.width, height: 1))
-        borderView.backgroundColor = UIColor.TrackerColor.gray
-        tabBar.addSubview(borderView)
-        
-        let trackersViewController = TrackersViewController()
-        let statisticsViewController = StatisticsViewController()
-        
-        let trackersNavigationController = UINavigationController(rootViewController: trackersViewController)
-        let statisticsNavigationController = UINavigationController(rootViewController: statisticsViewController)
-        
-        trackersNavigationController.tabBarItem = UITabBarItem(
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+                
+        let trackersViewController = UINavigationController(rootViewController: TrackersViewController())
+        trackersViewController.tabBarItem = UITabBarItem(
             title: "Трекеры",
-            image: UIImage.TrackerIcon.records,
-            tag: 0
-        )
-        statisticsNavigationController.tabBarItem = UITabBarItem(
-            title: "Статистика",
-            image: UIImage.TrackerIcon.statistics,
-            tag: 1
+            image: UIImage(named: "Trackers"),
+            selectedImage: nil
         )
         
-        self.viewControllers = [trackersNavigationController, statisticsNavigationController]
+        let statisticViewController = StatisticViewController()
+        statisticViewController.tabBarItem = UITabBarItem(
+            title: "Статистика",
+            image: UIImage(named: "Stats"),
+            selectedImage: nil
+        )
+        
+        self.viewControllers = [trackersViewController, statisticViewController]
+        
+        let separatorImage = UIImage()
+
+        self.tabBar.shadowImage = separatorImage
+        self.tabBar.backgroundImage = separatorImage
+        self.tabBar.layer.borderWidth = 0.50
+        self.tabBar.clipsToBounds = true
     }
 }

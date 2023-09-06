@@ -8,6 +8,11 @@
 import UIKit
 import CoreData
 
+enum TrackerRecordError: Error {
+    case noRecords
+    case missingFields
+}
+
 protocol TrackerRecordStoreDelegate: AnyObject {
     func storeRecord()
 }
@@ -60,7 +65,7 @@ final class TrackerRecordStore: NSObject {
     
     func removeTrackerRecord(_ trackerRecord: TrackerRecord?) throws {
         guard let toDelete = try self.fetchTrackerRecord(with: trackerRecord)
-        else { fatalError() }
+        else { throw TrackerRecordError.noRecords }
         context.delete(toDelete)
         try context.save()
     }
@@ -68,12 +73,12 @@ final class TrackerRecordStore: NSObject {
     func record(from trackerRecordCoreData: TrackerRecordCoreData) throws -> TrackerRecord {
         guard let id = trackerRecordCoreData.id,
               let date = trackerRecordCoreData.date
-        else { fatalError() }
+        else { throw TrackerRecordError.missingFields }
         return TrackerRecord(id: id, date: date)
     }
     
     func fetchTrackerRecord(with trackerRecord: TrackerRecord?) throws -> TrackerRecordCoreData? {
-        guard let trackerRecord = trackerRecord else { fatalError() }
+        guard let trackerRecord = trackerRecord else { throw TrackerRecordError.noRecords }
         let fetchRequest: NSFetchRequest<TrackerRecordCoreData> = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", trackerRecord.id as CVarArg)
         let result = try context.fetch(fetchRequest)
@@ -86,3 +91,4 @@ extension TrackerRecordStore: NSFetchedResultsControllerDelegate {
         delegate?.storeRecord()
     }
 }
+

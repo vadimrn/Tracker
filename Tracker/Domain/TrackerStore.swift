@@ -8,6 +8,10 @@
 import UIKit
 import CoreData
 
+enum TrackerError: Error {
+    case missingFields
+}
+
 protocol TrackerStoreDelegate: AnyObject {
     func store() -> Void
 }
@@ -70,7 +74,7 @@ final class TrackerStore: NSObject {
               let title = trackerCoreData.title,
               let schedule = trackerCoreData.schedule
         else {
-            fatalError()
+            throw TrackerError.missingFields
         }
         return Tracker(id: id, title: title, color: color, emoji: emoji, schedule: schedule.map({ WeekDay(rawValue: $0)!}))
     }
@@ -81,3 +85,4 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
         delegate?.store()
     }
 }
+

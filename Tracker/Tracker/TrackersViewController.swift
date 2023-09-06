@@ -218,7 +218,11 @@ extension TrackersViewController: UITextFieldDelegate {
 extension TrackersViewController: TrackersActions {
     func appendTracker(tracker: Tracker, category: String?) {
         guard let category = category else { return }
-        try! self.trackerStore.addNewTracker(tracker)
+        do {
+            try self.trackerStore.addNewTracker(tracker)
+        } catch {
+            // show error
+        }
         let foundCategory = self.categories.first { ctgry in
             ctgry.header == category
         }
@@ -243,33 +247,18 @@ extension TrackersViewController: TrackersActions {
     }
     
     func showFirstStubScreen() {
-        if visibleCategories.isEmpty {
-            collectionView.isHidden = true
-            emptySearch.isHidden = true
-            emptySearchText.isHidden = true
-        } else {
-            collectionView.isHidden = false
-            emptySearch.isHidden = false
-            emptySearchText.isHidden = false
-        }
+        collectionView.isHidden = visibleCategories.isEmpty
+        emptySearch.isHidden = visibleCategories.isEmpty
+        emptySearchText.isHidden = visibleCategories.isEmpty
     }
     
     func showSecondStubScreen() {
-        if visibleCategories.isEmpty {
-            collectionView.isHidden = true
-            emptyTrackersLogo.isHidden = true
-            emptyTrackersText.isHidden = true
-            emptySearch.isHidden = false
-            emptySearchText.isHidden = false
-        } else {
-            collectionView.isHidden = false
-            emptyTrackersLogo.isHidden = false
-            emptyTrackersText.isHidden = false
-            emptySearch.isHidden = true
-            emptySearchText.isHidden = true
+        collectionView.isHidden = visibleCategories.isEmpty
+        emptySearch.isHidden = visibleCategories.isEmpty
+        emptySearchText.isHidden = visibleCategories.isEmpty
         }
     }
-}
+
 
 // MARK: - UICollectionViewDataSource
 extension TrackersViewController: UICollectionViewDataSource {
@@ -336,7 +325,12 @@ extension TrackersViewController: TrackerCellDelegate {
         let calendar = Calendar.current
         if calendar.compare(selectedDate, to: currentDate, toGranularity: .day) != .orderedDescending {
             let trackerRecord = TrackerRecord(id: id, date: selectedDate)
-            try! self.trackerRecordStore.addNewTrackerRecord(trackerRecord)
+            
+            do {
+                try self.trackerRecordStore.addNewTrackerRecord(trackerRecord)
+            } catch {
+                print("Ошибка при добавлении новой записи трекера: \(error)")
+            }
         } else {
             return
         }
@@ -346,7 +340,14 @@ extension TrackersViewController: TrackerCellDelegate {
         let toRemove = completedTrackers.first {
             isSameTrackerRecord(trackerRecord: $0, id: id)
         }
-        try! self.trackerRecordStore.removeTrackerRecord(toRemove)
+        
+        do {
+            if let recordToRemove = toRemove {
+                try self.trackerRecordStore.removeTrackerRecord(recordToRemove)
+            }
+        } catch {
+            print("Ошибка при удалении записи трекера: \(error)")
+        }
     }
 }
 

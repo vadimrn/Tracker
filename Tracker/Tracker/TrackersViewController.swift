@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TrackersViewController: UIViewController {
+final class TrackersViewController: UIViewController, UITextFieldDelegate {
     
     private var trackerStore = TrackerStore()
     private var trackerRecordStore = TrackerRecordStore()
@@ -201,19 +201,6 @@ extension TrackersViewController: TrackerStoreDelegate {
         collectionView.reloadData()
     }
 }
-
-// MARK: - UITextFieldDelegate
-extension TrackersViewController: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        self.filterText = textField.text
-        filterTrackers()
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
-    }
-}
-
 // MARK: - TrackersActions
 extension TrackersViewController: TrackersActions {
     func appendTracker(tracker: Tracker, category: String?) {

@@ -329,6 +329,10 @@ extension HabitViewController: UITableViewDataSource {
 
 // MARK: - UITextFieldDelegate
 extension HabitViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_textField:UITextField) ->Bool {
+            view.endEditing(true)
+    return true
+        }
     func textFieldDidChangeSelection(_ textField: UITextField) {
         clearButton.isHidden = textField.text?.isEmpty ?? true
         if textField.text?.isEmpty ?? false {
@@ -340,11 +344,10 @@ extension HabitViewController: UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
+      
+        }
+    
+
 
 // MARK: - UICollectionViewDataSource
 extension HabitViewController: UICollectionViewDataSource {

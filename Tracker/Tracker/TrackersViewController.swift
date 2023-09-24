@@ -204,15 +204,19 @@ extension TrackersViewController: TrackerStoreDelegate {
 
 // MARK: - UITextFieldDelegate
 extension TrackersViewController: UITextFieldDelegate {
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         self.filterText = textField.text
         filterTrackers()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
+        // Скрываем клавиатуру при нажатии на кнопку return
+        textField.endEditing(true)
+        return false
     }
 }
+
 
 // MARK: - TrackersActions
 extension TrackersViewController: TrackersActions {

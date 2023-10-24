@@ -2,7 +2,7 @@
 //  UIColorMarshalling.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov  on 11.08.23.
+//  Created by Vadim Nuretdinov on 11.08.23.
 //
 
 import UIKit

@@ -2,7 +2,7 @@
 //  TrackerStructures.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov  on 01.08.2023.
+//  Created by Vadim Nuretdinov on 01.08.2023.
 //
 
 import UIKit
@@ -13,6 +13,8 @@ struct Tracker {
     let color: UIColor
     let emoji: String
     let schedule: [WeekDay]?
+    let pinned: Bool
+    let colorIndex: Int
 }
 
 struct TrackerCategory {

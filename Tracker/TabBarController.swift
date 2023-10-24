@@ -2,7 +2,7 @@
 //  TabBarController.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov  on 07.07.2023.
+//  Created by Vadim Nuretdinov on 07.07.2023.
 //
 
 import UIKit
@@ -12,16 +12,18 @@ final class TabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
-        let trackersViewController = UINavigationController(rootViewController: TrackersViewController())
+        let trackersVC = TrackersViewController()
+        let trackersViewController = UINavigationController(rootViewController: trackersVC)
         trackersViewController.tabBarItem = UITabBarItem(
-            title: "Трекеры",
+            title: NSLocalizedString("app.title", comment: ""),
             image: UIImage(named: "Trackers"),
             selectedImage: nil
         )
         
         let statisticViewController = StatisticViewController()
+        statisticViewController.trackersViewController = trackersVC
         statisticViewController.tabBarItem = UITabBarItem(
-            title: "Статистика",
+            title: NSLocalizedString("statistic.title", comment: ""),
             image: UIImage(named: "Stats"),
             selectedImage: nil
         )

@@ -2,7 +2,7 @@
 //  LaunchScreenViewController.swift
 //  Tracker
 //
-//
+<<<<//
 
 import UIKit
 

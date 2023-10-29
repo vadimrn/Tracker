@@ -2,7 +2,6 @@
 //  LaunchScreenViewController.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov on 05.07.2023.
 //
 
 import UIKit

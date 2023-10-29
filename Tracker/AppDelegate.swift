@@ -2,16 +2,22 @@
 //  AppDelegate.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov on 19.06.2023.
+//  Created by Vadim Nuretdinov 19.06.2023.
 //
 
 import UIKit
 import CoreData
+import YandexMobileMetrica
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        guard let configuration = YMMYandexMetricaConfiguration(apiKey: "0e188227-bd58-44b7-b00b-c740c0ae30d7") else {
+            return true
+        }
+        
+        YMMYandexMetrica.activate(with: configuration)
         return true
     }
     

@@ -2,16 +2,11 @@
 //  TrackerRecordStore.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov  on 11.08.23.
+//  Created by Vadim Nuretdinov on 11.08.23.
 //
 
 import UIKit
 import CoreData
-
-enum TrackerRecordError: Error {
-    case noRecords
-    case missingFields
-}
 
 protocol TrackerRecordStoreDelegate: AnyObject {
     func storeRecord()
@@ -65,7 +60,7 @@ final class TrackerRecordStore: NSObject {
     
     func removeTrackerRecord(_ trackerRecord: TrackerRecord?) throws {
         guard let toDelete = try self.fetchTrackerRecord(with: trackerRecord)
-        else { throw TrackerRecordError.noRecords }
+        else { fatalError() }
         context.delete(toDelete)
         try context.save()
     }
@@ -73,12 +68,12 @@ final class TrackerRecordStore: NSObject {
     func record(from trackerRecordCoreData: TrackerRecordCoreData) throws -> TrackerRecord {
         guard let id = trackerRecordCoreData.id,
               let date = trackerRecordCoreData.date
-        else { throw TrackerRecordError.missingFields }
+        else { fatalError() }
         return TrackerRecord(id: id, date: date)
     }
     
     func fetchTrackerRecord(with trackerRecord: TrackerRecord?) throws -> TrackerRecordCoreData? {
-        guard let trackerRecord = trackerRecord else { throw TrackerRecordError.noRecords }
+        guard let trackerRecord = trackerRecord else { fatalError() }
         let fetchRequest: NSFetchRequest<TrackerRecordCoreData> = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", trackerRecord.id as CVarArg)
         let result = try context.fetch(fetchRequest)
@@ -86,9 +81,9 @@ final class TrackerRecordStore: NSObject {
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
 extension TrackerRecordStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         delegate?.storeRecord()
     }
 }
-

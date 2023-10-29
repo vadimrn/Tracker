@@ -2,7 +2,7 @@
 //  UIColor+Extensions.swift
 //  Tracker
 //
-//  Created by Vadim Nuretdinov on 05.07.2023.
+//  Created by Vadim Nuretdinov on 22.08.2023.
 //
 
 import UIKit
